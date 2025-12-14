@@ -5,12 +5,46 @@ const renderedAt = new Date();
 ---
 
 <html lang="en">
-  <head> ... </head>
-
+  <head> </head>
   <body>
-    <div class="grid place-items-center h-screen content-center">
-      <p>Rendered At Millis: {renderedAt.getTime()}</p>
-      <p>Rendered At ISO: {renderedAt.toISOString()}</p>
+    <div class="h-screen flex flex-col items-center justify-center gap-4">
+      <h1 class="text-3xl font-bold mb-4">astro_vercel_isr example</h1>
+      <div
+        class="grid place-items-center content-center bg-gray-100 p-4 rounded-md"
+      >
+        <div class="text-lg font-bold mb-2">content to test isr</div>
+        <p>Rendered At Millis: {renderedAt.getTime()}</p>
+        <p>Rendered At Locale String: {renderedAt.toLocaleString()}</p>
+      </div>
+      <div>
+        <button
+          class="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer"
+          id="invalidate-button"
+        >
+          Invalidate
+        </button>
+      </div>
     </div>
+    <script>
+      const invalidateButton = document.getElementById("invalidate-button");
+      invalidateButton?.addEventListener("click", async () => {
+        try {
+          const response = await fetch("/api/invalidate", {
+            method: "POST",
+            body: JSON.stringify({ route: "/" }),
+          });
+          const data = await response.json();
+          console.log(data);
+          if (data.wasInvalidated) {
+            alert("Invalidated");
+          } else {
+            alert("Failed to invalidate");
+          }
+        } catch (error) {
+          console.error(error);
+          alert("Failed to invalidate");
+        }
+      });
+    </script>
   </body>
 </html>
