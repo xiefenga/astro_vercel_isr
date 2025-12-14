@@ -1,5 +1,5 @@
 {
-  "name": "personal_blog_isr",
+  "name": "astro_vercel_isr",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -11,6 +11,7 @@
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/react": "^4.4.2",
+    "@astrojs/vercel": "^9.0.2",
     "@tailwindcss/vite": "^4.1.17",
     "@types/canvas-confetti": "^1.9.0",
     "@types/react": "^19.2.7",
